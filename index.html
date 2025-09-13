@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>منصة نشر التطبيقات والألعاب - مجاني</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts for languages -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+        body.en { font-family: 'Roboto', sans-serif; }
+        body.he { font-family: 'Noto Sans Hebrew', sans-serif; }
+        body.zh { font-family: 'Noto Sans SC', sans-serif; }
+
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .glass-effect { backdrop-filter: blur(10px); background: rgba(255,255,255,0.1); }
+        .app-card { background: linear-gradient(145deg, #ffffff, #f0f0f0); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                        <span class="text-2xl">🚀</span>
+                    </div>
+                    <h1 class="text-2xl font-bold">منصة التطبيقات</h1>
+                </div>
+                <nav class="hidden md:flex space-x-6 space-x-reverse items-center">
+                    <a href="#home" class="hover:text-yellow-300 transition-colors" data-key="nav_home">الرئيسية</a>
+                    <a href="#apps" class="hover:text-yellow-300 transition-colors" data-key="nav_apps">التطبيقات</a>
+                    <a href="#publish" class="hover:text-yellow-300 transition-colors" data-key="nav_publish">نشر تطبيق</a>
+                    <div class="relative">
+                        <select id="languageSelector" class="bg-white bg-opacity-20 text-white border border-white border-opacity-30 rounded-lg px-3 py-1 text-sm">
+                            <option value="ar">العربية</option>
+                            <option value="en">English</option>
+                            <option value="he">עברית</option>
+                            <option value="zh">中文</option>
+                        </select>
+                    </div>
+                </nav>
+                <div id="authSection">
+                    <button id="loginBtn" class="bg-white text-purple-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors" data-key="login">
+                        تسجيل الدخول
+                    </button>
+                    <div id="userMenu" class="hidden bg-white text-purple-600 px-4 py-2 rounded-lg">
+                        <span id="userName" class="font-semibold ml-2"></span>
+                        <button id="logoutBtn" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600" data-key="logout">
+                            خروج
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-5xl font-bold mb-6" data-key="hero_title">انشر تطبيقك أو لعبتك بسهولة</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto" data-key="hero_subtitle">منصة احترافية لنشر التطبيقات والألعاب مجاناً. وصول لآلاف المستخدمين حول العالم</p>
+            <button id="startPublishingBtn" class="bg-yellow-400 text-gray-900 px-8 py-4 rounded-lg text-xl font-bold hover:bg-yellow-300 transition-colors shadow-lg" data-key="start_publishing">
+                ابدأ النشر الآن - مجاني
+            </button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h3 class="text-3xl font-bold text-center mb-12 text-gray-800" data-key="why_choose">لماذا تختار منصتنا؟</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6 card-hover rounded-xl border">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl">💸</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3" data-key="competitive_price">مجاني</h4>
+                    <p class="text-gray-600" data-key="price_desc">نشر التطبيقات مجاني تماماً</p>
+                </div>
+                <div class="text-center p-6 card-hover rounded-xl border">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl">⚡</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3" data-key="fast_publish">نشر سريع</h4>
+                    <p class="text-gray-600" data-key="fast_desc">تطبيقك سيكون متاحاً خلال دقائق من رفعه</p>
+                </div>
+                <div class="text-center p-6 card-hover rounded-xl border">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl">🌍</span>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-3" data-key="global_reach">وصول عالمي</h4>
+                    <p class="text-gray-600" data-key="global_desc">آلاف المستخدمين من جميع أنحاء العالم</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apps Gallery -->
+    <section id="apps" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h3 class="text-3xl font-bold text-center mb-12 text-gray-800" data-key="published_apps">التطبيقات والألعاب المنشورة</h3>
+            <div id="appsGrid" class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Apps will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Publish Section -->
+    <section id="publish" class="py-16 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h3 class="text-3xl font-bold text-center mb-12 text-gray-800" data-key="publish_now">انشر تطبيقك الآن</h3>
+            <div class="bg-gradient-to-r from-purple-50 to-blue-50 p-8 rounded-2xl shadow-lg">
+                <form id="publishForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2" data-key="app_name">اسم التطبيق/اللعبة</label>
+                            <input type="text" id="appName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="أدخل اسم التطبيق">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2" data-key="category">الفئة</label>
+                            <select id="appCategory" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                                <option value="" data-key="choose_category">اختر الفئة</option>
+                                <option value="games" data-key="games">ألعاب</option>
+                                <option value="productivity" data-key="productivity">إنتاجية</option>
+                                <option value="education" data-key="education">تعليم</option>
+                                <option value="entertainment" data-key="entertainment">ترفيه</option>
+                                <option value="business" data-key="business">أعمال</option>
+                                <option value="social" data-key="social">اجتماعي</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2" data-key="app_description">وصف التطبيق</label>
+                        <textarea id="appDescription" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="اكتب وصفاً مفصلاً عن تطبيقك..."></textarea>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2" data-key="app_file">ملف التطبيق</label>
+                            <input type="file" id="appFile" accept=".apk,.ipa,.exe,.dmg,.zip,.rar" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                            <p class="text-xs text-gray-500 mt-1" data-key="supported_formats">الصيغ المدعومة: APK, IPA, EXE, DMG, ZIP, RAR</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2" data-key="app_image">رابط الصورة</label>
+                            <input type="url" id="appImage" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="https://example.com/image.jpg">
+                        </div>
+                    </div>
+                    
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <span class="text-2xl ml-3">✅</span>
+                            <div>
+                                <h4 class="font-semibold text-gray-800" data-key="publish_fee">النشر: مجاني</h4>
+                                <p class="text-sm text-gray-600" data-key="one_time_payment">يمكنك النشر بدون أي رسوم</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 rounded-lg text-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg" data-key="pay_and_publish">
+                        نشر التطبيق الآن - مجاني
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+            <h3 class="text-2xl font-bold text-center mb-6">تسجيل الدخول</h3>
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">البريد الإلكتروني</label>
+                    <input type="email" id="loginEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">كلمة المرور</label>
+                    <input type="password" id="loginPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500" required>
+                </div>
+                <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+                    دخول
+                </button>
+            </form>
+            <div class="text-center mt-4">
+                <p class="text-gray-600">ليس لديك حساب؟ <button id="showRegisterBtn" class="text-purple-600 font-semibold hover:underline">إنشاء حساب</button></p>
+            </div>
+            <button id="closeLoginModal" class="absolute top-4 left-4 text-gray-500 hover:text-gray-700">✕</button>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative">
+            <h3 class="text-2xl font-bold text-center mb-6">إنشاء حساب جديد</h3>
+            <form id="registerForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">الاسم الكامل</label>
+                    <input type="text" id="registerName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">البريد الإلكتروني</label>
+                    <input type="email" id="registerEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">كلمة المرور</label>
+                    <input type="password" id="registerPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500" required>
+                </div>
+                <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                    إنشاء الحساب
+                </button>
+            </form>
+            <div class="text-center mt-4">
+                <p class="text-gray-600">لديك حساب؟ <button id="showLoginBtn" class="text-purple-600 font-semibold hover:underline">تسجيل الدخول</button></p>
+            </div>
+            <button id="closeRegisterModal" class="absolute top-4 left-4 text-gray-500 hover:text-gray-700">✕</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 space-x-reverse mb-4">
+                        <span class="text-2xl">🚀</span>
+                        <h4 class="text-xl font-bold">منصة التطبيقات</h4>
+                    </div>
+                    <p class="text-gray-400">المنصة الأولى لنشر التطبيقات والألعاب في المنطقة</p>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">روابط سريعة</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#home" class="hover:text-white transition-colors">الرئيسية</a></li>
+                        <li><a href="#apps" class="hover:text-white transition-colors">التطبيقات</a></li>
+                        <li><a href="#publish" class="hover:text-white transition-colors">نشر تطبيق</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">الدعم</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">مركز المساعدة</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">الشروط والأحكام</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">سياسة الخصوصية</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">إحصائيات المنصة</h5>
+                    <div class="space-y-2 text-gray-400">
+                        <p id="totalApps">📱 0 تطبيق منشور</p>
+                        <p id="totalUsers">👥 0 مطور مسجل</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 منصة التطبيقات. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Optional Firebase SDK (enable only if you will set firebaseConfig below) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+    <script>
+        /**************************************************************************
+         * ملاحظة:
+         * - الكود يعمل تماماً بدون Firebase ويخزن كل شيء في localStorage.
+         * - لو حطيت firebaseConfig سيعمل مزامنة لتظهر التطبيقات لكل الزوار.
+         **************************************************************************/
+
+        // --- ضع بيانات Firebase هنا إن أردت تفعيل المشاركة العالمية ---
+        const firebaseConfig = {
+            // apiKey: "YOUR_API_KEY",
+            // authDomain: "YOUR_PROJECT.firebaseapp.com",
+            // databaseURL: "https://YOUR_PROJECT.firebaseio.com",
+            // projectId: "YOUR_PROJECT",
+            // storageBucket: "YOUR_PROJECT.appspot.com",
+            // messagingSenderId: "SENDER_ID",
+            // appId: "APP_ID"
+        };
+
+        const USE_FIREBASE = !!(firebaseConfig && firebaseConfig.apiKey);
+        let firebaseDB = null;
+        if (USE_FIREBASE) {
+            firebase.initializeApp(firebaseConfig);
+            firebaseDB = firebase.database();
+        }
+
+        const translations = {
+            ar: {
+                nav_home: 'الرئيسية',
+                nav_apps: 'التطبيقات',
+                nav_publish: 'نشر تطبيق',
+                login: 'تسجيل الدخول',
+                logout: 'خروج',
+                hero_title: 'انشر تطبيقك أو لعبتك بسهولة',
+                hero_subtitle: 'منصة احترافية لنشر التطبيقات والألعاب مجاناً. وصول لآلاف المستخدمين حول العالم',
+                start_publishing: 'ابدأ النشر الآن - مجاني',
+                why_choose: 'لماذا تختار منصتنا؟',
+                competitive_price: 'مجاني',
+                price_desc: 'نشر التطبيقات مجاني تماماً',
+                fast_publish: 'نشر سريع',
+                fast_desc: 'تطبيقك سيكون متاحاً خلال دقائق من رفعه',
+                global_reach: 'وصول عالمي',
+                global_desc: 'آلاف المستخدمين من جميع أنحاء العالم',
+                published_apps: 'التطبيقات والألعاب المنشورة',
+                publish_now: 'انشر تطبيقك الآن',
+                app_name: 'اسم التطبيق/اللعبة',
+                category: 'الفئة',
+                choose_category: 'اختر الفئة',
+                app_description: 'وصف التطبيق',
+                app_file: 'ملف التطبيق',
+                supported_formats: 'الصيغ المدعومة: APK, IPA, EXE, DMG, ZIP, RAR',
+                app_image: 'رابط الصورة',
+                publish_fee: 'النشر: مجاني',
+                one_time_payment: 'يمكنك النشر بدون أي رسوم',
+                pay_and_publish: 'نشر التطبيق الآن - مجاني',
+                no_apps_yet: 'لا توجد تطبيقات منشورة بعد',
+                be_first: 'كن أول من ينشر تطبيقه على المنصة!',
+                open_app: 'تحميل التطبيق',
+                games: 'ألعاب',
+                productivity: 'إنتاجية',
+                education: 'تعليم',
+                entertainment: 'ترفيه',
+                business: 'أعمال',
+                social: 'اجتماعي'
+            },
+            en: {
+                nav_home: 'Home',
+                nav_apps: 'Apps',
+                nav_publish: 'Publish App',
+                login: 'Login',
+                logout: 'Logout',
+                hero_title: 'Publish Your App or Game Easily',
+                hero_subtitle: 'Professional platform for publishing apps and games for free. Reach thousands of users worldwide',
+                start_publishing: 'Start Publishing Now - Free',
+                why_choose: 'Why Choose Our Platform?',
+                competitive_price: 'Free',
+                price_desc: 'Publish apps for free',
+                fast_publish: 'Fast Publishing',
+                fast_desc: 'Your app will be available within minutes of upload',
+                global_reach: 'Global Reach',
+                global_desc: 'Thousands of users from around the world',
+                published_apps: 'Published Apps and Games',
+                publish_now: 'Publish Your App Now',
+                app_name: 'App/Game Name',
+                category: 'Category',
+                choose_category: 'Choose Category',
+                app_description: 'App Description',
+                app_file: 'App File',
+                supported_formats: 'Supported formats: APK, IPA, EXE, DMG, ZIP, RAR',
+                app_image: 'Image URL',
+                publish_fee: 'Publishing: Free',
+                one_time_payment: 'You can publish without fees',
+                pay_and_publish: 'Publish App Now - Free',
+                no_apps_yet: 'No apps published yet',
+                be_first: 'Be the first to publish your app on the platform!',
+                open_app: 'Download App',
+                games: 'Games',
+                productivity: 'Productivity',
+                education: 'Education',
+                entertainment: 'Entertainment',
+                business: 'Business',
+                social: 'Social'
+            },
+            he: {
+                nav_home: 'בית',
+                nav_apps: 'אפליקציות',
+                nav_publish: 'פרסם אפליקציה',
+                login: 'התחברות',
+                logout: 'יציאה',
+                hero_title: 'פרסם את האפליקציה או המשחק שלך בקלות',
+                hero_subtitle: 'פלטפורמה מקצועית לפרסום אפליקציות ומשחקים בחינם. הגע לאלפי משתמשים ברחבי העולם',
+                start_publishing: 'התחל לפרסם עכשיו - חינם',
+                why_choose: 'למה לבחור בפלטפורמה שלנו?',
+                competitive_price: 'חינם',
+                price_desc: 'פרסום אפליקציות בחינם',
+                fast_publish: 'פרסום מהיר',
+                fast_desc: 'האפליקציה שלך תהיה זמינה תוך דקות מהעלאה',
+                global_reach: 'הגעה גלובלית',
+                global_desc: 'אלפי משתמשים מרחבי העולם',
+                published_apps: 'אפליקציות ומשחקים שפורסמו',
+                publish_now: 'פרסם את האפליקציה שלך עכשיו',
+                app_name: 'שם האפליקציה/משחק',
+                category: 'קטגוריה',
+                choose_category: 'בחר קטגוריה',
+                app_description: 'תיאור האפליקציה',
+                app_file: 'קובץ האפליקציה',
+                supported_formats: 'פורמטים נתמכים: APK, IPA, EXE, DMG, ZIP, RAR',
+                app_image: 'קישור לתמונה',
+                publish_fee: 'פרסום: בחינם',
+                one_time_payment: 'אתה יכול לפרסם ללא עמלות',
+                pay_and_publish: 'פרסם עכשיו - חינם',
+                no_apps_yet: 'עדיין לא פורסמו אפליקציות',
+                be_first: 'היה הראשון לפרסם את האפליקציה בפלטפורמה!',
+                open_app: 'הורד אפליקציה',
+                games: 'משחקים',
+                productivity: 'פרודוקטיביות',
+                education: 'חינוך',
+                entertainment: 'בידור',
+                business: 'עסקים',
+                social: 'חברתי'
+            },
+            zh: {
+                nav_home: '首页',
+                nav_apps: '应用',
+                nav_publish: '发布应用',
+                login: '登录',
+                logout: '退出',
+                hero_title: '轻松发布您的应用或游戏',
+                hero_subtitle: '专业的应用和游戏发布平台，免费发布。触达全球数千用户',
+                start_publishing: '立即开始发布 - 免费',
+                why_choose: '为什么选择我们的平台？',
+                competitive_price: '免费',
+                price_desc: '免费发布应用',
+                fast_publish: '快速发布',
+                fast_desc: '上传后几分钟内即可上线',
+                global_reach: '全球覆盖',
+                global_desc: '来自世界各地的数千用户',
+                published_apps: '已发布的应用和游戏',
+                publish_now: '立即发布您的应用',
+                app_name: '应用/游戏名称',
+                category: '类别',
+                choose_category: '选择类别',
+                app_description: '应用描述',
+                app_file: '应用文件',
+                supported_formats: '支持格式：APK, IPA, EXE, DMG, ZIP, RAR',
+                app_image: '图片链接',
+                publish_fee: '发布：免费',
+                one_time_payment: '您可以免费发布',
+                pay_and_publish: '立即发布 - 免费',
+                no_apps_yet: '暂无已发布应用',
+                be_first: '成为第一个在平台上发布应用的人！',
+                open_app: '下载应用',
+                games: '游戏',
+                productivity: '效率',
+                education: '教育',
+                entertainment: '娱乐',
+                business: '商务',
+                social: '社交'
+            }
+        };
+
+        let currentLanguage = localStorage.getItem('selectedLanguage') || 'ar';
+
+        function updateLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('selectedLanguage', lang);
+
+            document.documentElement.lang = lang;
+            // set body class for fonts
+            document.body.className = lang === 'ar' ? 'bg-gray-50' : `bg-gray-50 ${lang}`;
+            document.documentElement.dir = (lang === 'ar' || lang === 'he') ? 'rtl' : 'ltr';
+
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' && element.type !== 'file') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            const selector = document.getElementById('languageSelector');
+            if (selector) selector.value = lang;
+
+            loadApps();
+        }
+
+        // ----------------- نظام التخزين (محلي + اختياري Firebase) -----------------
+        let publishedApps = JSON.parse(localStorage.getItem('publishedApps')) || [];
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+        if (USE_FIREBASE && firebaseDB) {
+            firebaseDB.ref('publishedApps').on('value', snapshot => {
+                const val = snapshot.val() || {};
+                publishedApps = Object.values(val).map(v => v);
+                localStorage.setItem('publishedApps', JSON.stringify(publishedApps));
+                loadApps();
+                updateStats();
+            });
+
+            firebaseDB.ref('users').on('value', snapshot => {
+                const val = snapshot.val() || {};
+                users = Object.values(val).map(v => v);
+                localStorage.setItem('users', JSON.stringify(users));
+                updateStats();
+            });
+        }
+
+        // ----------------- وظائف المصادقة -----------------
+        function checkAuthStatus() {
+            if (currentUser) {
+                document.getElementById('loginBtn').classList.add('hidden');
+                document.getElementById('userMenu').classList.remove('hidden');
+                document.getElementById('userName').textContent = currentUser.name;
+            } else {
+                document.getElementById('loginBtn').classList.remove('hidden');
+                document.getElementById('userMenu').classList.add('hidden');
+            }
+        }
+
+        function saveUsersToBackendIfEnabled() {
+            localStorage.setItem('users', JSON.stringify(users));
+            if (USE_FIREBASE && firebaseDB) {
+                users.forEach(u => {
+                    firebaseDB.ref('users/' + u.id).set(u);
+                });
+            }
+        }
+
+        function register(name, email, password) {
+            const existingUser = users.find(user => user.email === email);
+            if (existingUser) {
+                alert(getText('email_in_use', 'البريد الإلكتروني مستخدم بالفعل'));
+                return false;
+            }
+
+            const newUser = {
+                id: Date.now().toString(),
+                name: name,
+                email: email,
+                password: password,
+                publishedApps: []
+            };
+
+            users.push(newUser);
+            saveUsersToBackendIfEnabled();
+
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            checkAuthStatus();
+
+            alert(getText('account_created', 'تم إنشاء الحساب وتسجيل الدخول بنجاح! يمكنك الآن نشر التطبيقات'));
+            return true;
+        }
+
+        function login(email, password) {
+            const user = users.find(user => user.email === email && user.password === password);
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                checkAuthStatus();
+                closeAllModals();
+                alert((currentLanguage === 'ar' ? 'مرحباً ' : currentLanguage === 'he' ? 'שלום ' : currentLanguage === 'zh' ? '您好 ' : 'Hello ') + user.name + '!' + getText('logged_in', ' تم تسجيل الدخول بنجاح'));
+                return true;
+            } else {
+                alert(getText('invalid_credentials', 'البريد الإلكتروني أو كلمة المرور غير صحيحة'));
+                return false;
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            checkAuthStatus();
+            alert(getText('logged_out', 'تم تسجيل الخروج بنجاح'));
+        }
+
+        function getText(key, fallback) {
+            return (translations[currentLanguage] && translations[currentLanguage][key]) ? translations[currentLanguage][key] : fallback;
+        }
+
+        // ----------------- تحميل وعرض التطبيقات -----------------
+        function loadApps() {
+            const appsGrid = document.getElementById('appsGrid');
+            appsGrid.innerHTML = '';
+
+            if (!publishedApps || publishedApps.length === 0) {
+                appsGrid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <div class="text-6xl mb-4">📱</div>
+                        <h3 class="text-xl font-semibold text-gray-600 mb-2">${translations[currentLanguage].no_apps_yet}</h3>
+                        <p class="text-gray-500">${translations[currentLanguage].be_first}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            publishedApps.forEach(app => {
+                const appCard = document.createElement('div');
+                appCard.className = 'app-card p-6 rounded-xl shadow-lg card-hover cursor-pointer';
+                appCard.innerHTML = `
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                            ${app.image ? `<img src="${app.image}" alt="${app.name}" class="w-full h-full object-cover rounded-xl" onerror="this.style.display='none'; this.parentElement.innerHTML='📱';">` : '📱'}
+                        </div>
+                        <h4 class="font-bold text-lg mb-2 text-gray-800">${app.name}</h4>
+                        <p class="text-gray-600 text-sm mb-3">${app.description}</p>
+                        <div class="flex justify-between items-center text-sm mb-2">
+                            <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full">${getCategoryName(app.category)}</span>
+                            <span class="text-gray-500">👤 ${app.publisherName}</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs text-gray-500 mb-3">
+                            <span>📁 ${app.fileSize || 'N/A'}</span>
+                            <span>⬇️ ${app.downloads || 0}</span>
+                        </div>
+                        <button onclick="downloadApp('${app.id}')" class="w-full mt-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all" data-key="open_app">
+                            ${translations[currentLanguage].open_app}
+                        </button>
+                    </div>
+                `;
+                appsGrid.appendChild(appCard);
+            });
+        }
+
+        function getCategoryName(category) {
+            const categories = translations[currentLanguage] || translations['ar'];
+            const categoryMap = {
+                'games': categories.games,
+                'productivity': categories.productivity,
+                'education': categories.education,
+                'entertainment': categories.entertainment,
+                'business': categories.business,
+                'social': categories.social
+            };
+            return categoryMap[category] || category;
+        }
+
+        function downloadApp(appId) {
+            const app = publishedApps.find(a => a.id === appId);
+            if (app && app.fileUrl) {
+                app.downloads = (app.downloads || 0) + 1;
+                localStorage.setItem('publishedApps', JSON.stringify(publishedApps));
+                if (USE_FIREBASE && firebaseDB) {
+                    firebaseDB.ref('publishedApps/' + app.id).set(app);
+                }
+                const link = document.createElement('a');
+                link.href = app.fileUrl;
+                link.download = app.fileName || `${app.name}.${app.fileUrl.split('.').pop()}`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                loadApps();
+                updateStats();
+            } else {
+                alert(getText('file_not_available', 'ملف التطبيق غير متوفر للتحميل'));
+            }
+        }
+
+        // ----------------- نشر التطبيقات -----------------
+        function publishApp(appData) {
+            const newApp = {
+                id: Date.now().toString(),
+                name: appData.name,
+                category: appData.category,
+                description: appData.description,
+                fileUrl: appData.fileUrl,
+                fileName: appData.fileName,
+                fileSize: appData.fileSize,
+                image: appData.image,
+                publisherId: currentUser.id,
+                publisherName: currentUser.name,
+                publishDate: new Date().toLocaleDateString('ar-SA'),
+                downloads: 0
+            };
+
+            publishedApps.push(newApp);
+            localStorage.setItem('publishedApps', JSON.stringify(publishedApps));
+
+            currentUser.publishedApps = currentUser.publishedApps || [];
+            currentUser.publishedApps.push(newApp.id);
+            const userIndex = users.findIndex(user => user.id === currentUser.id);
+            if (userIndex !== -1) users[userIndex] = currentUser;
+            saveUsersToBackendIfEnabled();
+
+            if (USE_FIREBASE && firebaseDB) {
+                firebaseDB.ref('publishedApps/' + newApp.id).set(newApp);
+            }
+
+            loadApps();
+            document.getElementById('publishForm').reset();
+            alert(getText('published_ok', 'تم نشر التطبيق بنجاح! 🎉'));
+        }
+
+        function handleFileUpload(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fileData = {
+                        url: e.target.result,
+                        name: file.name,
+                        size: (file.size / 1024 / 1024).toFixed(2) + ' MB'
+                    };
+                    resolve(fileData);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // ----------------- Events و Form handlers -----------------
+        document.getElementById('publishForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            if (!currentUser) {
+                alert(getText('must_login', 'يجب تسجيل الدخول أولاً لنشر التطبيقات'));
+                document.getElementById('loginModal').classList.remove('hidden');
+                return;
+            }
+
+            const appName = document.getElementById('appName').value;
+            const appCategory = document.getElementById('appCategory').value;
+            const appDescription = document.getElementById('appDescription').value;
+            const appFile = document.getElementById('appFile').files[0];
+            const appImage = document.getElementById('appImage').value;
+
+            if (!appName || !appCategory || !appDescription || !appFile) {
+                alert(getText('fill_required', 'يرجى ملء جميع الحقول المطلوبة ورفع ملف التطبيق'));
+                return;
+            }
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = getText('uploading', 'جاري الرفع...');
+            submitBtn.disabled = true;
+
+            try {
+                const fileData = await handleFileUpload(appFile);
+                publishApp({
+                    name: appName,
+                    category: appCategory,
+                    description: appDescription,
+                    fileUrl: fileData.url,
+                    fileName: fileData.name,
+                    fileSize: fileData.size,
+                    image: appImage
+                });
+            } catch (error) {
+                alert(getText('upload_error', 'حدث خطأ أثناء رفع الملف'));
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Authentication UI handlers
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            document.getElementById('loginModal').classList.remove('hidden');
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            login(email, password);
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+
+            if (register(name, email, password)) {
+                closeAllModals();
+            }
+        });
+
+        document.getElementById('showRegisterBtn').addEventListener('click', function() {
+            document.getElementById('loginModal').classList.add('hidden');
+            document.getElementById('registerModal').classList.remove('hidden');
+        });
+
+        document.getElementById('showLoginBtn').addEventListener('click', function() {
+            document.getElementById('registerModal').classList.add('hidden');
+            document.getElementById('loginModal').classList.remove('hidden');
+        });
+
+        document.getElementById('closeLoginModal').addEventListener('click', closeAllModals);
+        document.getElementById('closeRegisterModal').addEventListener('click', closeAllModals);
+
+        // Start publishing button
+        document.getElementById('startPublishingBtn').addEventListener('click', function() {
+            if (!currentUser) {
+                alert(getText('must_login', 'يجب تسجيل الدخول أولاً'));
+                document.getElementById('loginModal').classList.remove('hidden');
+                return;
+            }
+            document.getElementById('publish').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+
+        // Smooth scrolling for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        function closeAllModals() {
+            document.getElementById('loginModal').classList.add('hidden');
+            document.getElementById('registerModal').classList.add('hidden');
+        }
+
+        // Update statistics
+        function updateStats() {
+            document.getElementById('totalApps').textContent = `📱 ${publishedApps.length} ${currentLanguage === 'he' ? 'אפליקציות פורסמו' : currentLanguage === 'zh' ? '应用已发布' : 'تطبيق منشور'}`;
+            document.getElementById('totalUsers').textContent = `👥 ${users.length} ${currentLanguage === 'he' ? 'מפתחים רשומים' : currentLanguage === 'zh' ? '开发者已注册' : 'مطور مسجل'}`;
+        }
+
+        // Language selector handler
+        document.getElementById('languageSelector').addEventListener('change', function(e) {
+            updateLanguage(e.target.value);
+        });
+
+        // Initialize on load
+        updateLanguage(currentLanguage);
+        checkAuthStatus();
+        loadApps();
+        updateStats();
+    </script>
+</body>
+</html>
