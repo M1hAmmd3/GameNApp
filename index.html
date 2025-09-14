@@ -23,6 +23,47 @@
         .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         .glass-effect { backdrop-filter: blur(10px); background: rgba(255,255,255,0.1); }
         .app-card { background: linear-gradient(145deg, #ffffff, #f0f0f0); }
+
+        /* Custom language dropdown styles (dark options) */
+        .language-dropdown { position: relative; display: inline-block; }
+        .language-btn {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .35rem .75rem;
+            border-radius: .5rem;
+            background: rgba(255,255,255,0.12);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.18);
+            cursor: pointer;
+        }
+        .language-options {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            background: #000; /* black background as requested */
+            color: #fff;
+            border-radius: .6rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            overflow: hidden;
+            min-width: 160px;
+            z-index: 50;
+            display: none;
+        }
+        .language-option {
+            padding: .6rem .9rem;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .language-option:hover {
+            background: rgba(255,255,255,0.06);
+        }
+        /* Ensure select (if any) fallback remains readable */
+        select#languageSelectorFallback {
+            background: #000 !important;
+            color: #fff !important;
+            border: 1px solid rgba(255,255,255,0.18) !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -40,14 +81,23 @@
                     <a href="#home" class="hover:text-yellow-300 transition-colors" data-key="nav_home">الرئيسية</a>
                     <a href="#apps" class="hover:text-yellow-300 transition-colors" data-key="nav_apps">التطبيقات</a>
                     <a href="#publish" class="hover:text-yellow-300 transition-colors" data-key="nav_publish">نشر تطبيق</a>
-                    <div class="relative">
-                        <select id="languageSelector" class="bg-white bg-opacity-20 text-white border border-white border-opacity-30 rounded-lg px-3 py-1 text-sm">
-                            <option value="ar">العربية</option>
-                            <option value="en">English</option>
-                            <option value="he">עברית</option>
-                            <option value="zh">中文</option>
-                        </select>
+
+                    <!-- Custom language dropdown (dark background for options) -->
+                    <div class="relative language-dropdown">
+                        <button id="languageBtn" class="language-btn" aria-haspopup="listbox" aria-expanded="false">
+                            <span id="languageBtnLabel">العربية</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" class="mt-0.5">
+                                <path d="M6 9l6 6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div id="languageOptions" class="language-options" role="listbox" aria-labelledby="languageBtn">
+                            <div class="language-option" data-lang="ar">العربية</div>
+                            <div class="language-option" data-lang="en">English</div>
+                            <div class="language-option" data-lang="he">עברית</div>
+                            <div class="language-option" data-lang="zh">中文</div>
+                        </div>
                     </div>
+
                 </nav>
                 <div id="authSection">
                     <button id="loginBtn" class="bg-white text-purple-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors" data-key="login">
@@ -156,6 +206,13 @@
                             <input type="url" id="appImage" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="https://example.com/image.jpg">
                         </div>
                     </div>
+
+                    <!-- New: Support URL field -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">رابط الدعم (اختياري)</label>
+                        <input type="url" id="appSupportUrl" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="https://paypal.me/yourname أو https://patreon.com/yourname">
+                        <p class="text-xs text-gray-500 mt-1">أدخل رابط الدفع أو التبرع ليتم عرضه في صفحة التطبيق لتمكين المستخدمين من دعمك مادياً.</p>
+                    </div>
                     
                     <div class="bg-green-50 border border-green-200 rounded-lg p-4">
                         <div class="flex items-center">
@@ -259,6 +316,7 @@
                     <div class="space-y-2 text-gray-400">
                         <p id="totalApps">📱 0 تطبيق منشور</p>
                         <p id="totalUsers">👥 0 مطور مسجل</p>
+                        <p id="totalSupports">💖 0 دعم</p>
                     </div>
                 </div>
             </div>
@@ -329,6 +387,8 @@
                 no_apps_yet: 'لا توجد تطبيقات منشورة بعد',
                 be_first: 'كن أول من ينشر تطبيقه على المنصة!',
                 open_app: 'تحميل التطبيق',
+                support_app: 'دعم المطور',
+                supported_count_label: 'دعم',
                 games: 'ألعاب',
                 productivity: 'إنتاجية',
                 education: 'تعليم',
@@ -367,6 +427,8 @@
                 no_apps_yet: 'No apps published yet',
                 be_first: 'Be the first to publish your app on the platform!',
                 open_app: 'Download App',
+                support_app: 'Support Developer',
+                supported_count_label: 'Supports',
                 games: 'Games',
                 productivity: 'Productivity',
                 education: 'Education',
@@ -405,6 +467,8 @@
                 no_apps_yet: 'עדיין לא פורסמו אפליקציות',
                 be_first: 'היה הראשון לפרסם את האפליקציה בפלטפורמה!',
                 open_app: 'הורד אפליקציה',
+                support_app: 'תמוך במפתח',
+                supported_count_label: 'תמיכות',
                 games: 'משחקים',
                 productivity: 'פרודוקטיביות',
                 education: 'חינוך',
@@ -443,6 +507,8 @@
                 no_apps_yet: '暂无已发布应用',
                 be_first: '成为第一个在平台上发布应用的人！',
                 open_app: '下载应用',
+                support_app: '支持开发者',
+                supported_count_label: '支持次数',
                 games: '游戏',
                 productivity: '效率',
                 education: '教育',
@@ -474,10 +540,13 @@
                 }
             });
 
-            const selector = document.getElementById('languageSelector');
-            if (selector) selector.value = lang;
+            // Update language button label
+            const labelMap = { ar: 'العربية', en: 'English', he: 'עברית', zh: '中文' };
+            const labelEl = document.getElementById('languageBtnLabel');
+            if (labelEl) labelEl.textContent = labelMap[lang] || lang;
 
             loadApps();
+            updateStats();
         }
 
         // ----------------- نظام التخزين (محلي + اختياري Firebase) -----------------
@@ -485,10 +554,13 @@
         let users = JSON.parse(localStorage.getItem('users')) || [];
         let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
 
+        // Ensure existing apps have supports field
+        publishedApps = publishedApps.map(a => ({ supports: 0, ...a }));
+
         if (USE_FIREBASE && firebaseDB) {
             firebaseDB.ref('publishedApps').on('value', snapshot => {
                 const val = snapshot.val() || {};
-                publishedApps = Object.values(val).map(v => v);
+                publishedApps = Object.values(val).map(v => ({ supports: 0, ...v }));
                 localStorage.setItem('publishedApps', JSON.stringify(publishedApps));
                 loadApps();
                 updateStats();
@@ -609,9 +681,22 @@
                             <span>📁 ${app.fileSize || 'N/A'}</span>
                             <span>⬇️ ${app.downloads || 0}</span>
                         </div>
-                        <button onclick="downloadApp('${app.id}')" class="w-full mt-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all" data-key="open_app">
-                            ${translations[currentLanguage].open_app}
-                        </button>
+                        <div class="space-y-2">
+                            <button onclick="downloadApp('${app.id}')" class="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all" data-key="open_app">
+                                ${translations[currentLanguage].open_app}
+                            </button>
+
+                            ${app.supportUrl ? `
+                                <div class="flex gap-2 mt-2">
+                                    <button onclick="supportApp('${app.id}')" class="flex-1 bg-yellow-400 text-gray-900 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition-colors">
+                                        ${translations[currentLanguage].support_app} (${app.supports || 0})
+                                    </button>
+                                    <button onclick="openSupportLink('${app.id}')" class="w-12 rounded-lg border border-gray-300 text-sm">
+                                        ↗
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
                     </div>
                 `;
                 appsGrid.appendChild(appCard);
@@ -652,6 +737,33 @@
             }
         }
 
+        // ----------------- دعم التطبيق (فتح الرابط + عداد الدعم) -----------------
+        function supportApp(appId) {
+            const app = publishedApps.find(a => a.id === appId);
+            if (!app) return;
+            // Increase supports counter locally
+            app.supports = (app.supports || 0) + 1;
+            localStorage.setItem('publishedApps', JSON.stringify(publishedApps));
+            if (USE_FIREBASE && firebaseDB) {
+                firebaseDB.ref('publishedApps/' + app.id).set(app);
+            }
+            // If supportUrl exists, open it in new tab
+            if (app.supportUrl) {
+                window.open(app.supportUrl, '_blank');
+            }
+            loadApps();
+            updateStats();
+        }
+
+        function openSupportLink(appId) {
+            const app = publishedApps.find(a => a.id === appId);
+            if (app && app.supportUrl) {
+                window.open(app.supportUrl, '_blank');
+            } else {
+                alert('رابط الدعم غير متوفر');
+            }
+        }
+
         // ----------------- نشر التطبيقات -----------------
         function publishApp(appData) {
             const newApp = {
@@ -666,7 +778,9 @@
                 publisherId: currentUser.id,
                 publisherName: currentUser.name,
                 publishDate: new Date().toLocaleDateString('ar-SA'),
-                downloads: 0
+                downloads: 0,
+                supports: 0,
+                supportUrl: appData.supportUrl || ''
             };
 
             publishedApps.push(newApp);
@@ -717,6 +831,7 @@
             const appDescription = document.getElementById('appDescription').value;
             const appFile = document.getElementById('appFile').files[0];
             const appImage = document.getElementById('appImage').value;
+            const appSupportUrl = document.getElementById('appSupportUrl').value;
 
             if (!appName || !appCategory || !appDescription || !appFile) {
                 alert(getText('fill_required', 'يرجى ملء جميع الحقول المطلوبة ورفع ملف التطبيق'));
@@ -737,7 +852,8 @@
                     fileUrl: fileData.url,
                     fileName: fileData.name,
                     fileSize: fileData.size,
-                    image: appImage
+                    image: appImage,
+                    supportUrl: appSupportUrl
                 });
             } catch (error) {
                 alert(getText('upload_error', 'حدث خطأ أثناء رفع الملف'));
@@ -821,14 +937,40 @@
         function updateStats() {
             document.getElementById('totalApps').textContent = `📱 ${publishedApps.length} ${currentLanguage === 'he' ? 'אפליקציות פורסמו' : currentLanguage === 'zh' ? '应用已发布' : 'تطبيق منشور'}`;
             document.getElementById('totalUsers').textContent = `👥 ${users.length} ${currentLanguage === 'he' ? 'מפתחים רשומים' : currentLanguage === 'zh' ? '开发者已注册' : 'مطور مسجل'}`;
+            const totalSupports = publishedApps.reduce((s, a) => s + (a.supports || 0), 0);
+            document.getElementById('totalSupports').textContent = `💖 ${totalSupports} ${currentLanguage === 'he' ? 'תמיכות' : currentLanguage === 'zh' ? '支持次数' : 'دعم'}`;
         }
 
-        // Language selector handler
-        document.getElementById('languageSelector').addEventListener('change', function(e) {
-            updateLanguage(e.target.value);
-        });
+        // ----------------- Language dropdown handlers (custom) -----------------
+        const languageBtn = document.getElementById('languageBtn');
+        const languageOptions = document.getElementById('languageOptions');
+
+        function initLanguageDropdown() {
+            languageBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const expanded = languageBtn.getAttribute('aria-expanded') === 'true';
+                languageBtn.setAttribute('aria-expanded', !expanded);
+                languageOptions.style.display = expanded ? 'none' : 'block';
+            });
+
+            document.querySelectorAll('.language-option').forEach(opt => {
+                opt.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    updateLanguage(lang);
+                    languageOptions.style.display = 'none';
+                    languageBtn.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            // close when clicking outside
+            document.addEventListener('click', function() {
+                languageOptions.style.display = 'none';
+                languageBtn.setAttribute('aria-expanded', 'false');
+            });
+        }
 
         // Initialize on load
+        initLanguageDropdown();
         updateLanguage(currentLanguage);
         checkAuthStatus();
         loadApps();
